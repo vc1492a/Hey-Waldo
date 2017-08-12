@@ -27,3 +27,10 @@ size (scaling issue), repeating patterns (red/white stripes present on other obj
 occlusion (Waldo is often blocked by other people or objects), and the nature of the
 data, which is unbalanced (most images do not contain Waldo). It's a tough but 
 fun application and I invite others to give it a try and share their results. 
+
+### Fun Stuff
+
+- Playing Where's Waldo Using a Tiramisu Network for Semantic Segmentation
+    - [Article](https://hackernoon.com/wheres-waldo-terminator-edition-8b3bd0805741)
+    - [Github Repository](https://github.com/bckenstler/TheresWaldo)
+
