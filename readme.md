@@ -33,4 +33,7 @@ fun application and I invite others to give it a try and share their results.
 - Playing Where's Waldo Using a Tiramisu Network for Semantic Segmentation
     - [Article](https://hackernoon.com/wheres-waldo-terminator-edition-8b3bd0805741)
     - [Github Repository](https://github.com/bckenstler/TheresWaldo)
+- How to Find Wally with a Neural Network
+	- [Article](https://towardsdatascience.com/how-to-find-wally-neural-network-eddbb20b0b90)
+	- [Github Repository](https://github.com/tadejmagajna/HereIsWally)
 
