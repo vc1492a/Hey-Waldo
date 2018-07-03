@@ -30,6 +30,9 @@ fun application and I invite others to give it a try and share their results.
 
 ### Fun Stuff
 
+- Finding Wally (interactive web application)
+	- [Link to App](http://findingwally.pythonanywhere.com)
+	- [Github Repository](https://github.com/pauldnguyen/findingwally)
 - Playing Where's Waldo Using a Tiramisu Network for Semantic Segmentation
     - [Article](https://hackernoon.com/wheres-waldo-terminator-edition-8b3bd0805741)
     - [Github Repository](https://github.com/bckenstler/TheresWaldo)
