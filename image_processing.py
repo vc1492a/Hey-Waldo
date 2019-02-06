@@ -98,7 +98,7 @@ def chop(x_div, y_div, input_file_path, output_file_path):
             gridx = x_div
             gridy = y_div
             rangex = int(imageWidth / gridx)
-            rangey = int(imageWidth / gridy)
+            rangey = int(imageHeight / gridy)
             for x in range(rangex):
                 for y in range(rangey):
                     bbox = (x * gridx, y * gridy, x * gridx + gridx, y * gridy + gridy)
