@@ -6,6 +6,7 @@ import os
 from PIL import Image, ImageChops, ImageOps
 import math
 import numpy as np
+from json import dump
 
 
 # Please don't run this function unless you have to. There's a limit of 5000 requests per month. #
@@ -78,7 +79,7 @@ def crop_and_size(input_file_path, output_file_path, dimensions):
         if image != '.DS_Store':
             img = Image.open(input_file_path + '/' + image)
             cropped_and_sized = ImageOps.fit(img, dimensions, Image.ANTIALIAS)
-            cropped_and_sized.save(output_file_path + '/' + str(counter) + '.jpg', 'JPEG')
+            cropped_and_sized.save(output_file_path + '/' + image, 'JPEG')
             counter += 1
 
 
@@ -169,3 +170,25 @@ def black_or_white(input_file_path, output_file_path):
 
 
 # black_or_white('chopped-128', 'chopped-128-bw')
+
+def extract_position_data():
+    """ extract position data """
+    final_data = {}
+    for type_img in ["", "-bw", "-gray"]:
+        for dimension in ["64", "128", "256"]:
+            folder = f"{dimension}{type_img}"
+            dim = int(dimension)
+            final_data[folder] = {}
+            img_list = os.listdir(f"{folder}/waldo")
+            for img in img_list:
+                (num, x_pos, y_pos) = img.split(".jpg")[0].split("_")
+                num = int(num)  # to order the dict correctly
+                if num not in final_data[folder]:
+                    final_data[folder][num] = []
+                final_data[folder][num].append(
+                    {"x": x_pos, "x_px": int(x_pos)*dim, "y": y_pos, "y_px": int(y_pos)*dim})
+    with open('data.json', 'w', encoding="utf-8") as file:
+        dump(final_data, file, indent=4, sort_keys=True)
+
+
+# extract_position_data()
