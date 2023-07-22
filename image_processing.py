@@ -74,7 +74,7 @@ def crop_and_size(input_file_path, output_file_path, dimensions):
     # create a directory if it does not exist
     if not os.path.exists(output_file_path):
         os.makedirs(output_file_path)
-    for image in sorted(os.listdir(input_file_path)):
+    for image in tqdm(os.listdir(input_file_path)):
         if image != '.DS_Store':
             img = Image.open(input_file_path + '/' + image)
             cropped_and_sized = ImageOps.fit(img, dimensions, Image.ANTIALIAS)
