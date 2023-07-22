@@ -173,18 +173,16 @@ def extract_position_data():
     """ extract position data """
     final_data = {}
     for type_img in ["", "-bw", "-gray"]:
-        for dimension in ["64", "128", "256"]:
+        for dimension in [64, 128, 256]:
             folder = f"{dimension}{type_img}"
-            dim = int(dimension)
             final_data[folder] = {}
-            img_list = os.listdir(f"{folder}/waldo")
-            for img in img_list:
+            for img in tqdm(os.listdir(f"{folder}/waldo"), desc=f"Extracting {folder}"):
                 (num, x_pos, y_pos) = img.split(".jpg")[0].split("_")
                 num = int(num)  # to order the dict correctly
                 if num not in final_data[folder]:
                     final_data[folder][num] = []
                 final_data[folder][num].append(
-                    {"x": x_pos, "x_px": int(x_pos)*dim, "y": y_pos, "y_px": int(y_pos)*dim})
+                    {"x": x_pos, "x_px": int(x_pos)*dimension, "y": y_pos, "y_px": int(y_pos)*dimension})
     with open('data.json', 'w', encoding="utf-8") as file:
         dump(final_data, file, indent=4, sort_keys=True)
 
