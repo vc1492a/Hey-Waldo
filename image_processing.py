@@ -74,16 +74,14 @@ def crop_and_size(input_file_path, output_file_path, dimensions):
     # create a directory if it does not exist
     if not os.path.exists(output_file_path):
         os.makedirs(output_file_path)
-    counter = 1
-    for image in os.listdir(input_file_path):
+    for image in sorted(os.listdir(input_file_path)):
         if image != '.DS_Store':
             img = Image.open(input_file_path + '/' + image)
             cropped_and_sized = ImageOps.fit(img, dimensions, Image.ANTIALIAS)
             cropped_and_sized.save(output_file_path + '/' + image, 'JPEG')
-            counter += 1
 
 
-# crop_and_size('raw-images', 'cropped-and-resized', (1024, 1024))
+# crop_and_size('original-images', 'cropped-and-resized', (1024, 1024))
 
 
 # chops the images into smaller images for use
