@@ -6,6 +6,7 @@ import os
 from PIL import Image, ImageChops, ImageOps
 import math
 import numpy as np
+from json import dump
 
 
 # Please don't run this function unless you have to. There's a limit of 5000 requests per month. #
@@ -73,16 +74,14 @@ def crop_and_size(input_file_path, output_file_path, dimensions):
     # create a directory if it does not exist
     if not os.path.exists(output_file_path):
         os.makedirs(output_file_path)
-    counter = 1
-    for image in os.listdir(input_file_path):
+    for image in tqdm(os.listdir(input_file_path)):
         if image != '.DS_Store':
             img = Image.open(input_file_path + '/' + image)
             cropped_and_sized = ImageOps.fit(img, dimensions, Image.ANTIALIAS)
-            cropped_and_sized.save(output_file_path + '/' + str(counter) + '.jpg', 'JPEG')
-            counter += 1
+            cropped_and_sized.save(output_file_path + '/' + image, 'JPEG')
 
 
-# crop_and_size('raw-images', 'cropped-and-resized', (1024, 1024))
+# crop_and_size('original-images', 'cropped-and-resized', (1024, 1024))
 
 
 # chops the images into smaller images for use
@@ -169,3 +168,23 @@ def black_or_white(input_file_path, output_file_path):
 
 
 # black_or_white('chopped-128', 'chopped-128-bw')
+
+def extract_position_data():
+    """ extract position data """
+    final_data = {}
+    for type_img in ["", "-bw", "-gray"]:
+        for dimension in [64, 128, 256]:
+            folder = f"{dimension}{type_img}"
+            final_data[folder] = {}
+            for img in tqdm(os.listdir(f"{folder}/waldo"), desc=f"Extracting {folder}"):
+                (num, x_pos, y_pos) = img.split(".jpg")[0].split("_")
+                num = int(num)  # to order the dict correctly
+                if num not in final_data[folder]:
+                    final_data[folder][num] = []
+                final_data[folder][num].append(
+                    {"x": x_pos, "x_px": int(x_pos)*dimension, "y": y_pos, "y_px": int(y_pos)*dimension})
+    with open('data.json', 'w', encoding="utf-8") as file:
+        dump(final_data, file, indent=4, sort_keys=True)
+
+
+# extract_position_data()
